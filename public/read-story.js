@@ -1,46 +1,71 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const englishSentence = document.getElementById('english-sentence');
+    const storyContent = document.getElementById('story-content');
     const hebrewTranslation = document.getElementById('hebrew-translation');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
-
-    const story = [
-        { english: "Here is Edward Bear, coming downstairs now, bump, bump, bump, on the back of his head, behind Christopher Robin.", hebrew: "הנה דובי אדוארד, יורד במדרגות עכשיו, באמפ, באמפ, באמפ, על גב ראשו, מאחורי כריסטופר רובין." },
-        { english: "It is, as far as he knows, the only way of coming downstairs, but sometimes he feels that there really is another way, if only he could stop bumping for a moment and think of it.", hebrew: "זו, ככל הידוע לו, הדרך היחידה לרדת במדרגות, אבל לפעמים הוא מרגיש שיש באמת דרך אחרת, אם רק היה יכול להפסיק להתנגש לרגע ולחשוב על זה." },
-        { english: "And then he feels that perhaps there isn't.", hebrew: "ואז הוא מרגיש שאולי אין." }
-    ];
-
+    const toggleTranslationBtn = document.getElementById('toggle-translation-btn');
+    const backToIntroBtn = document.getElementById('back-to-intro');
+    let storyPairs = [];
     let currentSentence = 0;
-    let sentencesRead = 0;
 
-    function updateSentence() {
-        englishSentence.textContent = story[currentSentence].english;
-        hebrewTranslation.textContent = story[currentSentence].hebrew;
-        prevBtn.disabled = currentSentence === 0;
-        nextBtn.disabled = currentSentence === story.length - 1;
-        
-        if (currentSentence > sentencesRead) {
-            sentencesRead = currentSentence;
-        }
+    // Fetch and process the story
+    fetch('/stories/three-little-pigs.txt')
+        .then(response => response.text())
+        .then(storyText => {
+            // Split the story into sentence pairs (English and Hebrew)
+            const sentences = storyText.split('\n').filter(line => line.trim() !== '');
+            for (let i = 2; i < sentences.length; i += 2) {  // Start from index 2 to skip the title
+                storyPairs.push({
+                    english: sentences[i],
+                    hebrew: sentences[i + 1] || ''  // In case of odd number of sentences
+                });
+            }
+            displaySentence();
+        })
+        .catch(error => {
+            console.error('Error loading story:', error);
+            storyContent.innerText = 'Error loading story. Please try again later.';
+        });
+
+    // Display current sentence
+    function displaySentence() {
+        storyContent.innerText = storyPairs[currentSentence].english;
+        hebrewTranslation.innerText = storyPairs[currentSentence].hebrew;
+        // Hide Hebrew translation when displaying a new sentence
+        hebrewTranslation.style.display = 'none';
+        updateButtons();
     }
 
+    // Update button states
+    function updateButtons() {
+        prevBtn.disabled = currentSentence === 0;
+        nextBtn.disabled = currentSentence === storyPairs.length - 1;
+    }
+
+    // Event listeners for navigation
     prevBtn.addEventListener('click', () => {
         if (currentSentence > 0) {
             currentSentence--;
-            updateSentence();
+            displaySentence();
         }
     });
 
     nextBtn.addEventListener('click', () => {
-        if (currentSentence < story.length - 1) {
+        if (currentSentence < storyPairs.length - 1) {
             currentSentence++;
-            updateSentence();
-        } else {
-            // Store the number of sentences read in localStorage
-            localStorage.setItem('sentencesRead', sentencesRead + 1);
-            window.location.href = '/story-summary';
+            displaySentence();
         }
     });
 
-    updateSentence();
+    toggleTranslationBtn.addEventListener('click', () => {
+        if (hebrewTranslation.style.display === 'none') {
+            hebrewTranslation.style.display = 'block';
+        } else {
+            hebrewTranslation.style.display = 'none';
+        }
+    });
+
+    backToIntroBtn.addEventListener('click', () => {
+        window.location.href = '/story-intro.html';
+    });
 });

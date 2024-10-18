@@ -11,6 +11,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Add this new route for the story-intro page
+app.get('/story-intro', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'story-intro.html'));
+});
+
 app.get('/story', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'story-summary.html'));
 });

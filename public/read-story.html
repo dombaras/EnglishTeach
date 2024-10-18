@@ -3,31 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading Winnie the Pooh</title>
+    <title>Read Story - The Three Little Pigs</title>
     <link rel="stylesheet" href="/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Fun English Learning</h1>
-        </header>
-        <main>
-            <section class="story-reading">
-                <h2>Winnie the Pooh</h2>
-                <div id="sentence-container" class="sentence-container">
-                    <p id="english-sentence" class="english-sentence"></p>
-                    <p id="hebrew-translation" class="hebrew-translation"></p>
-                </div>
-                <div class="controls">
-                    <button id="prev-btn" class="btn">Previous</button>
-                    <button id="next-btn" class="btn">Next</button>
-                </div>
-            </section>
-        </main>
-        <footer>
-            <p>Made with ❤️ for learning</p>
-        </footer>
+        <h1>The Three Little Pigs</h1>
+        <div id="story-content"></div>
+        <div id="hebrew-translation" style="display: none;"></div>
+        <div class="controls">
+            <button id="prev-btn" class="btn">Previous</button>
+            <button id="next-btn" class="btn">Next</button>
+            <button id="toggle-translation-btn" class="btn">Show/Hide Hebrew</button>
+        </div>
+        <button id="back-to-intro" class="btn">Back to Introduction</button>
     </div>
     <script src="/read-story.js"></script>
 </body>
