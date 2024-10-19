@@ -3,21 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read Story - The Three Little Pigs</title>
+    <title>Read Story</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>The Three Little Pigs</h1>
-        <div id="story-content"></div>
-        <div id="hebrew-translation" style="display: none;"></div>
-        <div class="controls">
-            <button id="prev-btn" class="btn">Previous</button>
-            <button id="next-btn" class="btn">Next</button>
-            <button id="toggle-translation-btn" class="btn">Show/Hide Hebrew</button>
-        </div>
-        <button id="back-to-intro" class="btn">Back to Introduction</button>
+        <header>
+            <h1>Story Reader</h1>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        </header>
+        <main>
+            <div class="story-reading">
+                <div class="sentence-container">
+                    <p id="story-content" class="english-sentence"></p>
+                    <p id="hebrew-translation" class="hebrew-translation hidden"></p>
+                </div>
+                <div id="feedback-area" class="hidden">
+                    <h3>Your Reading Result:</h3>
+                    <p id="feedbackContent"></p>
+                    <button id="closeFeedback" class="btn">Close Feedback</button>
+                </div>
+                <div class="controls">
+                    <button id="prev-btn" class="btn">Previous</button>
+                    <button id="next-btn" class="btn">Next</button>
+                    <button id="toggle-translation-btn" class="btn">Show/Hide Hebrew</button>
+                    <button id="read-aloud-btn" class="btn">Read Aloud</button>
+                </div>
+                <button id="go-to-summary-btn" class="btn hidden">Go to Summary</button>
+                <button id="back-to-intro" class="btn">Back to Introduction</button>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2023 Your Story App. All rights reserved.</p>
+        </footer>
     </div>
+
     <script src="/read-story.js"></script>
 </body>
 </html>

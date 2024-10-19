@@ -58,16 +58,14 @@ h2 {
     background-color: #E6F3FF;
     border-radius: 10px;
     padding: 20px;
-    text-align: center;
-    width: calc(50% - 20px);
+    text-align: left;
+    width: 100%;
     max-width: 200px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     display: block;
-    width: 100%;
     background: none;
     border: none;
-    text-align: left;
     cursor: pointer;
 }
 
@@ -93,7 +91,7 @@ h2 {
 .activity-name {
     display: block;
     margin-top: 10px;
-    font-size: 1.17em;  /* Approximately the size of an h3 */
+    font-size: 1.17em;
     font-weight: bold;
 }
 
@@ -149,6 +147,9 @@ footer {
 }
 
 .sentence-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     background-color: #f9f9f9;
     border-radius: 10px;
     padding: 20px;
@@ -156,14 +157,28 @@ footer {
     min-height: 150px;
 }
 
-.english-sentence {
+.english-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sentence-text {
+    flex-grow: 1;
     font-size: 1.2em;
-    margin-bottom: 10px;
 }
 
 .hebrew-translation {
     font-size: 1.1em;
     color: #666;
+    direction: rtl;
+    text-align: right;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.hebrew-translation.hidden {
+    display: none;
 }
 
 .controls {
@@ -171,6 +186,10 @@ footer {
     justify-content: center;
     gap: 1rem;
     margin-bottom: 1rem;
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding-top: 10px;
 }
 
 .cover-image {
@@ -184,14 +203,93 @@ footer {
     line-height: 1.6;
 }
 
-#hebrew-translation {
-    direction: rtl;
-    text-align: right;
-    margin-top: 10px;
-    font-style: italic;
-}
-
 #back-to-intro {
     display: block;
     margin: 1rem auto;
+}
+
+#goToSummaryBtn {
+    margin-top: 1rem;
+}
+
+.story-container {
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+#feedback-area {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.correct-word {
+    color: green;
+}
+
+.incorrect-word {
+    color: red;
+}
+
+.hoverable-word {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.hoverable-word:hover {
+    background-color: #ffeb3b;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+.speak-sentence-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #4CAF50;
+    transition: color 0.3s ease;
+}
+
+.speak-sentence-btn:hover {
+    color: #45a049;
+}
+
+.speak-sentence-btn:disabled {
+    color: #cccccc;
+    cursor: not-allowed;
+}
+
+.translation-bubble {
+    position: absolute;
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.translation-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
 }

@@ -3,31 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story Complete - Winnie the Pooh</title>
+    <title>Story Summary - The Three Little Pigs</title>
     <link rel="stylesheet" href="/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Fun English Learning</h1>
-        </header>
-        <main>
-            <section class="story-summary">
-                <h2>Congratulations!</h2>
-                <div class="trophy">🏆</div>
-                <p>You've finished reading "Winnie the Pooh"!</p>
-                <div class="summary-stats">
-                    <p>Sentences read: <span id="sentences-read">3</span></p>
-                    <p>New words learned: <span id="new-words">10</span></p>
-                </div>
-                <button id="back-to-home" class="btn">Back to Home</button>
-            </section>
-        </main>
-        <footer>
-            <p>Made with ❤️ for learning</p>
-        </footer>
+        <h1>Story Summary</h1>
+        <div class="story-summary">
+            <h2>The Three Little Pigs</h2>
+            <div class="trophy">🏆</div>
+            <div class="summary-stats">
+                <p>Total sentences: <span id="total-sentences"></span></p>
+                <p>Sentences read: <span id="sentences-read"></span></p>
+                <p>Translations shown: <span id="translations-shown"></span></p>
+                <p>Reading time: <span id="reading-time"></span></p>
+            </div>
+            <p class="summary">
+                Congratulations on finishing the story! You've learned about the importance of hard work and planning. Remember, like the third little pig, building strong foundations in your language learning will help you succeed!
+            </p>
+        </div>
+        <button id="back-to-intro" class="btn">Back to Introduction</button>
     </div>
-    <script src="/story.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Raw localStorage:', localStorage.getItem('storyStatistics'));
+        const stats = JSON.parse(localStorage.getItem('storyStatistics'));
+        console.log('Retrieved statistics:', stats);
+        
+        if (stats && Object.values(stats).some(value => value !== null)) {
+            document.getElementById('total-sentences').textContent = stats.totalSentences || 'N/A';
+            document.getElementById('sentences-read').textContent = stats.sentencesRead || 'N/A';
+            document.getElementById('translations-shown').textContent = stats.translationShownCount || 'N/A';
+            document.getElementById('reading-time').textContent = 
+                stats.readingTime ? Math.round(stats.readingTime) + ' seconds' : 'N/A';
+        } else {
+            document.querySelector('.summary-stats').innerHTML = '<p>No statistics available or all values are null.</p>';
+        }
+
+        document.getElementById('back-to-intro').addEventListener('click', () => {
+            window.location.href = '/story-intro.html';
+        });
+    });
+    </script>
 </body>
 </html>
